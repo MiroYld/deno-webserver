@@ -5,7 +5,7 @@ metadata:
     deployment.kubernetes.io/revision: "3"
   labels:
     app: {{ .Values.server.mariadb.service.name }}
-  name: {{ .Values.server.mariadb.service.name }}
+  name: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
   namespace: {{ .Values.server.mariadb.service.namespace }}
 spec:
   revisionHistoryLimit: 10
@@ -46,9 +46,9 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: logs
+        - name: {{ .Release.Name }}-logs
           persistentVolumeClaim:
-            claimName: logs
+            claimName: {{ .Release.Name }}-logs
         - name: {{ .Values.server.mariadb.service.name }}
           persistentVolumeClaim:
             claimName: {{ .Values.server.mariadb.service.name }}
@@ -57,7 +57,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Values.server.mariadb.service.name }}
+  name: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
 spec:
   accessModes:
     - ReadWriteOnce
@@ -72,7 +72,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.server.mariadb.service.name }}
+  name: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
   namespace: default
 spec:
   accessModes:
@@ -85,7 +85,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.server.mariadb.service.name }}
+  name: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
 spec:
   ports:
     - port: {{ .Values.server.mariadb.service.port }}
