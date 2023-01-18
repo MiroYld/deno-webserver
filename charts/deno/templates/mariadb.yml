@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   annotations:
     deployment.kubernetes.io/revision: "3"
@@ -8,17 +8,10 @@ metadata:
   name: {{ .Values.server.mariadb.service.name }}
   namespace: {{ .Values.server.mariadb.service.namespace }}
 spec:
-  progressDeadlineSeconds: 600
-  replicas: {{ .Values.server.mariadb.service.replicas }}
   revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: {{ .Values.server.mariadb.service.name }}
-  strategy:
-    rollingUpdate:
-      maxSurge: {{ .Values.server.mariadb.service.maxSurge }}
-      maxUnavailable: {{ .Values.server.mariadb.service.maxUnavailable }}
-    type: RollingUpdate
   template:
     metadata:
       labels:

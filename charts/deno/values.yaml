@@ -62,9 +62,6 @@ server:
     service:
       name: maria-db
       port: 3306
-      maxSurge: 25%
-      maxUnavailable: 25%
-      replicas: 1
       namespace: default
 
 replicaCount: 3
