@@ -1,0 +1,2 @@
+1) Modifier le fichier /etc/hosts: echo "$(minikube ip) deno.minikube" | sudo tee -a /etc/hosts
+2) Pour accéder au serveur web aller sur: {{ .Values.server.web.service.host }}

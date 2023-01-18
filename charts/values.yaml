@@ -1,0 +1,70 @@
+apiVersion: 2.1
+
+deno:
+  pv:
+    name: deno-pv
+    size: 1Gi
+    path: /data/deno-server/
+    persistentVolumeReclaimPolicy: Retain
+  pvc:
+    name: deno-pvc
+    size: 1Gi
+    volumeName: deno-pv
+
+maria:
+  pv:
+    name: maria-pv
+    size: 1Gi
+    path: /data/maria-db/
+    persistentVolumeReclaimPolicy: Retain
+  pvc:
+    name: maria-pvc
+    size: 1Gi
+    volumeName: maria-pv
+
+server:
+  web:
+    volumeMount:
+      name: deno-pv
+      mountPath: /data/deno-server/
+    volumes:
+      name: deno-pvc
+      claimName: deno-pvc
+    service:
+      type: NodePort
+      port: 8080
+      name: deno-webserver
+      host: deno.minikube
+      replicas: 3
+      namespace: default
+      maxSurge: 25%
+      maxUnavailable: 25%
+    image:
+      repository: nginx
+      pullPolicy: Always
+      tag: latest
+
+  mariadb:
+    rootPassword: asecret
+    user: root
+    password: asecret
+    database: logs
+    image:
+      repository: mariadb
+      pullPolicy: Always
+      tag: latest
+    volumeMount:
+      name: maria-pv
+      mountPath: /var/lib/mysql
+    volumes:
+      name: maria-pvc
+      claimName: maria-pvc
+    service:
+      name: maria-db
+      port: 3306
+      maxSurge: 25%
+      maxUnavailable: 25%
+      replicas: 1
+      namespace: default
+
+replicaCount: 3
