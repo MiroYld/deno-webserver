@@ -3,6 +3,16 @@ entries:
   deno-webserver:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-01-18T12:52:17.334193611Z"
+    description: A Helm chart for deno
+    digest: 223884a37dc8ac974afde6bef016a0064b1871ded622da4c404b8d64fbc584e7
+    name: deno-webserver
+    type: application
+    urls:
+    - https://github.com/MiroYld/deno-webserver/releases/download/deno-webserver-0.2.1/deno-webserver-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-01-18T11:15:29.425823591Z"
     description: A Helm chart for deno
     digest: 00e1f0a06948201dfe23d54608ba2ab8c000a294c60ffa235a26cf9b54796f01
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://github.com/MiroYld/deno-webserver/releases/download/deno-webserver-0.1.0/deno-webserver-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-18T11:15:29.425830791Z"
+generated: "2023-01-18T12:52:17.334363111Z"
