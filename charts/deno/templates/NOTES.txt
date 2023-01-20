@@ -1,5 +1,8 @@
-1) Modifier le fichier /etc/hosts: echo "$(minikube ip) deno.minikube" | sudo tee -a /etc/hosts
-2) Pour accéder au serveur web aller sur: http://{{ .Values.server.web.service.host }}
+1) Installer minikube:
+2) $ minikube start
+3) $ minikube tunnel
+4) Modifier le fichier /etc/hosts: echo "$(minikube ip) deno.minikube" | sudo tee -a /etc/hosts
+5) Pour accéder au serveur web aller sur: http://{{ .Values.server.web.service.host }}
 
 Avec helm:
 
