@@ -1,5 +1,6 @@
 apiVersion: 2.1
 
+# volumes var for deno
 deno:
   pv:
     name: deno-pv
@@ -10,7 +11,7 @@ deno:
     name: deno-pvc
     size: 1Gi
     volumeName: deno-pv
-
+# deno var for mariadb
 maria:
   pv:
     name: maria-pv
@@ -22,6 +23,7 @@ maria:
     size: 1Gi
     volumeName: maria-pv
 
+# var for servers (web and mariadb)
 server:
   web:
     volumeMount:

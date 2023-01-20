@@ -40,6 +40,14 @@ spec:
           volumeMounts:
             - name:  {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
               mountPath: /var/lib/mysql
+          # readinessProbe:
+          #     initialDelaySeconds: 20
+          #     periodSeconds: 60
+          #     exec:
+          #       command:
+          #         - "/bin/sh"
+          #         - "-c"
+          #         - "mysqladmin status -u root -p {{ .Values.server.mariadb.rootPassword }}"
       volumes:
         - name: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
           persistentVolumeClaim:
