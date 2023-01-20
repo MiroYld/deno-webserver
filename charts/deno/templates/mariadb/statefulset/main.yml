@@ -8,14 +8,15 @@ metadata:
   name: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
   namespace: {{ .Values.server.mariadb.service.namespace }}
 spec:
+  serviceName: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: {{ .Values.server.mariadb.service.name }}
+      app: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.server.mariadb.service.name }}
+        app: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
     spec:
       containers:
         - image: mariadb:10.7
@@ -26,29 +27,20 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mariadb-secret
+                  name: {{ .Release.Name }}-mariadb-secret
                   key: password
             - name: MYSQL_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: mariadb-secret
+                  name: {{ .Release.Name }}-mariadb-secret
                   key: db
           ports:
             - containerPort: {{ .Values.server.mariadb.service.port }}
               name: mysql
           volumeMounts:
-            - name: {{ .Values.server.mariadb.service.name }}
+            - name:  {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
               mountPath: /var/lib/mysql
- 
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
       volumes:
-        - name: {{ .Release.Name }}-logs
+        - name: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-logs
-        - name: {{ .Values.server.mariadb.service.name }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.server.mariadb.service.name }}
+            claimName:  {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}

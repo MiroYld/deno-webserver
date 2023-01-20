@@ -25,12 +25,15 @@ spec:
                 app: {{ .Values.server.web.service.name }}
         spec:
             containers:
-                - image: codebuds/deno-webserver:1.3.1
+                - image: codebuds/deno-webserver:1.6.0
                   imagePullPolicy: Always
                   name: {{ .Values.server.web.service.name }}
                   resources: {}
                   terminationMessagePath: /dev/termination-log
                   terminationMessagePolicy: File
+                  env:
+                      - name: MARIADB_HOST
+                        value: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
                   volumeMounts:
                       - mountPath: /srv/app/pvc
                         name: {{ .Release.Name }}-logs

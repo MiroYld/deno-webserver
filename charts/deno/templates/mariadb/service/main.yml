@@ -6,4 +6,4 @@ spec:
   ports:
     - port: {{ .Values.server.mariadb.service.port }}
   selector:
-    app: {{ .Values.server.mariadb.service.name }}
+    app: {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }}
