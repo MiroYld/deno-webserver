@@ -24,6 +24,17 @@ spec:
             labels:
                 app: {{ .Values.server.web.service.name }}
         spec:
+            initContainers:
+              - name: check-mariadb
+                image: busybox:1.31
+                env:
+                  - name: MARIADB_HOST
+                    value: "{{ .Release.Name }}"
+                command: [
+                  'sh',
+                  '-c',
+                  "echo -e \"checking database\"; while ! nc -z {{ .Release.Name }}-{{ .Values.server.mariadb.service.name }} 3306; do echo prout; done"
+                ]
             containers:
                 - image: codebuds/deno-webserver:1.6.0
                   imagePullPolicy: Always
