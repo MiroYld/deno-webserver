@@ -33,24 +33,21 @@ go to : http://deno.minikube
 ## Changelog
 
 deno-webserver:
-- 0.5.1
+- 1.3.0
+  - Liveness probe to webserver
+- 1.2.0
   - Update documentation and NOTES
-- 0.5.0
-  - Upgrade deno version to 1.6.0
-  - Add initContainer that check mariadb state before starting web server
-- 0.4.0
+- 1.1.0
+  - Upgrade deno version to 1.5.1
+  - use values
+- 0.2.2
   - Fix maria db connection
-  - Add Readiness probe to maria db
-  - Add Liveness probe to webserver
-- 0.3.0
+- 0.2.1
   - Use release variable to create deploy
-  - Change deno-webserver image to `codebuds/deno-webserver:1.5.1`
-  - Know issue:
-    - mariadb container might failed to create (Will be fixed in next release)
 - 0.2.0
   - Add GitHub action to create release
   - Add GitPage
-  - Change MariaDB to StatefulSet
+  - Change deno-webserver image
 - 0.1.0
   - Create helm chart
   - Create deno-webserver
